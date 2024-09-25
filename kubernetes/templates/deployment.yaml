@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webportal
+  labels:
+    app.kubernetes.io/name: webportal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: webportal
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: webportal
+    spec:
+      containers:
+        - name: webportal
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            capabilities:
+               drop: ["ALL"]
+            seccompProfile:
+              type: RuntimeDefault
+          image: ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG} 
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: webportal
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: webportal
+            initialDelaySeconds: 10
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: webportal
+            initialDelaySeconds: 10
+            periodSeconds: 5
+
+          startupProbe:
+            httpGet:
+              path: /
+              port: webportal
+            failureThreshold: 6
+            periodSeconds: 10

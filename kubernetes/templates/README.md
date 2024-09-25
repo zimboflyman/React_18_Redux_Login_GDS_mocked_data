@@ -1,0 +1,1 @@
+During GH workflow execution, files in this directory are coppied over to the base directory and the GH variables are are injected 

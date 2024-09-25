@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: webportal
+  labels:
+    app.kubernetes.io/name: webportal
+spec:
+  selector:
+    app.kubernetes.io/name: webportal
+  ports:
+    - name: webportal
+      port: 8080
+      targetPort: webportal

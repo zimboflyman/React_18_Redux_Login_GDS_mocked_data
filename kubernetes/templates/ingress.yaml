@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: webportal
+  annotations:
+    external-dns.alpha.kubernetes.io/set-identifier: webportal-${KUBE_NAMESPACE}-green
+    external-dns.alpha.kubernetes.io/aws-weight: "100"
+spec:
+  ingressClassName: default
+  tls:
+    - hosts:
+        - ${KUBE_NAMESPACE}.apps.live.cloud-platform.service.justice.gov.uk
+  rules:
+    - host: ${KUBE_NAMESPACE}.apps.live.cloud-platform.service.justice.gov.uk
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: webportal
+                port:
+                  number: 8080
