@@ -17,6 +17,8 @@ backend located in the main index file (/src/index.js). Once your have plugged
 in the active API for login and register you should remove the relevant fake
 helpers and actions.
 
+It was originally forked from - https://github.com/cornflourblue/react-18-redux-registration-login-example
+
 ## Setup Instructions
 
 1. Install Node.js and npm from https://nodejs.org.
